@@ -1,0 +1,65 @@
+from datetime import datetime
+
+from langchain_text_splitters             import CharacterTextSplitter
+from langchain_mistralai.chat_models      import ChatMistralAI
+from langchain.agents                     import create_agent
+from langchain_core.prompts               import ChatPromptTemplate,
+                                                 PromptTemplate,
+												 SystemMessagePromptTemplate,
+												 HumanMessagePromptTemplate
+from langchain.messages                   import HumanMessage,
+                                                 SystemMessage
+from langchain_mistralai                  import MistralAIEmbeddings
+
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_community.vectorstores           import SKLearnVectorStore
+from langchain_community.document_loaders       import TextLoader
+from langchain_community.document_loaders       import WikipediaLoader
+
+from langchain_classic.agents                            import load_tools,
+                                                                initialize_agent,
+																AgentType,
+																create_react_agent,
+																AgentExecutor
+from langchain_classic.agents                            import tool
+from langchain_classic.retrievers.contextual_compression import ContextualCompressionRetriever
+from langchain_classic.chains                            import ConversationChain
+from langchain_classic.chains                            import LLMChain
+from langchain_classic.chains.conversation.memory        import ConversationBufferMemory,
+                                                                ConversationBufferWindowMemory,
+																ConversationSummaryBufferMemory
+from langchain_classic.chains.question_answering         import load_qa_chain
+from langchain_classic.chains.qa_with_sources            import load_qa_with_sources_chain
+from langchain_classic.retrievers.document_compressors   import LLMChainExtractor
+from langchain_classic.chains.router.llm_router          import LLMRouterChain
+from langchain_classic.chains.router                     import MultiPromptChain
+from langchain_classic.chains.router.multi_prompt_prompt import MULTI_PROMPT_ROUTER_TEMPLATE
+from langchain_classic.chains.router.llm_router          import RouterOutputParser
+from langchain_classic.chains.sequential                 import SequentialChain
+from langchain_classic.chains.sequential                 import SimpleSequentialChain
+from langchain_classic.chains                            import TransformChain
+
+from langchain_experimental.agents.agent_toolkits import create_python_agent
+from langchain_experimental.tools.python.tool     import PythonREPLTool
+
+---
+
+import pickle    # Guardar objetos binarios
+
+import os
+from langchain_mistralai.chat_models import ChatMistralAI
+from langchain_core.prompts import ChatPromptTemplate, PromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
+
+os.environ["MISTRAL_API_KEY"] = open('path').read()
+
+model_name = "mistral-large-latest"
+temperature = 0
+retries = 2
+
+chat = ChatMistralAI(model=model_name, temperature=temperature, max_retries=retries)
+
+
+----------------------------------------------------------------
+
+Install langchain Mistral AI
+	pip install -qU langchain-mistralai
